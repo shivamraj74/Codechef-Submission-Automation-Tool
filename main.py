@@ -46,6 +46,10 @@ browser.find_element_by_id("edit_area_toggle_checkbox_edit-program").click()
 # submit the code
 inputElem = browser.find_element_by_id('edit-program')
 inputElem.send_keys(code)
+# change language to c++
+
+browser.find_element_by_xpath('//*[@id="edit-language"]/option[2]').click()
+
 
 browser.find_element_by_id("edit-submit").click()
 
