@@ -9,5 +9,5 @@ Follow these steps:-
 - Save the code to be submitted on codechef site as- "fileName" in the same directory and give input as the same.
 - If name of file is different change in main.py
 - Replace my username of codechef and type your password in place of "type_word_password_here" text.
-- Copy the link of codechef question in appropriate location in code.
+- Copy the link of codechef question in appropriate location in code or just write the problem code there.
 - Run the python script and wait for few seconds, the code will be submitted!
