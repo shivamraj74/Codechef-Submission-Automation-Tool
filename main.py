@@ -36,7 +36,7 @@ browser.get("https://www.codechef.com/submit/questionCode")  #codechef problem l
 with open("Solution.cpp",'r') as f:   #code file here
     code=f.read()
 
-#writting this code in txt area on codechef 
+#writing this code in text area on codechef 
 
 code_element=browser.find_element_by_id("edit-program")
 
