@@ -2,47 +2,54 @@
 
 #then install webdriver, by clicking - hhtp://selenium-python.readthedocs.io/installation.html#drivers
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+import getpass
+import time
 
-#open empty window
-browser = webdriver.Chrome(ChromeDriverManager().install())
+# codechef credentials for login
+username = "shivamraj74"
+password = getpass.getpass("Password: ")
 
-#open particular url
-browser.get("https://codechef.com")
+# problem code
+problem = input("Problem code: ")
 
-#after checking the ids of what we need to fill
-username_element=browser.find_element_by_id("edit-name")
+# submission code
+submission_file = input("Submission file: ")
 
-#send your username
-username_element.send_keys("shivamraj74")
+with open(submission_file, 'r') as f:
+	code = f.read()
 
-#now do same for password element 
-password_element=browser.find_element_by_id("edit-pass")
+# start a browser session
+# can be Chrome too
+browser = webdriver.Firefox()
 
-password_element.send_keys("type_your_password _here") #or use below 2 lines of code to manually enter password
-#for not showing password
-#from getpass import getpass
-#password_element.send_keys(getpass("enter password"))
+# open link in browser
+browser.get('https://www.codechef.com')
 
-#find submit button and click that
+# login
+nameElem = browser.find_element_by_id('edit-name')
+nameElem.send_keys(username)
+
+passElem = browser.find_element_by_id('edit-pass')
+passElem.send_keys(password)
+
+browser.find_element_by_id('edit-submit').click()
+
+# open submission page
+browser.get("https://www.codechef.com/submit/" + problem)
+
+# sleep function to let web components load in case of slow internet connnection
+time.sleep(10)
+
+# click on toggle button to open simple text mode
+browser.find_element_by_id("edit_area_toggle_checkbox_edit-program").click()
+
+# submit the code
+inputElem = browser.find_element_by_id('edit-program')
+inputElem.send_keys(code)
+
 browser.find_element_by_id("edit-submit").click()
 
-browser.get("https://www.codechef.com/submit/questionCode")  #codechef problem link here
+# get result
+result = browser.find_element_by_id("display_result").text
 
-#clicking the togle editor everytime we visit
-#browser.find_element_by_id('edit_area_toggle_checkbox_edit-program').click()
-
-#opening and reading solution to be submitted
-with open("Solution.cpp",'r') as f:   #code file here
-    code=f.read()
-
-#writing this code in text area on codechef 
-
-code_element=browser.find_element_by_id("edit-program")
-
-code_element.send_keys(code)
-
-#clicking on submit button to submit code
-import time
-time.sleep(10)
-browser.find_element_by_id("edit-submit-1").click()   
+print(result)
